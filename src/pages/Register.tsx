@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { authService } from '../services/apiService'; // Import authService
+import { authService } from '../services/authService.ts'; // Import authService
 import { tokenService } from '../services/tokenService';
 import PageLayout from '../components/templates/PageLayout';
 

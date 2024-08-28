@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import PageLayout from '../components/templates/PageLayout';
-import { authService } from '../services/apiService';
+import { authService } from '../services/authService.ts';
 import { tokenService } from '../services/tokenService';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginFormInputs {
   email: string;
@@ -16,6 +17,7 @@ const Login: React.FC = () => {
     formState: { errors },
   } = useForm<LoginFormInputs>();
   const [loginError, setLoginError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
@@ -95,6 +97,13 @@ const Login: React.FC = () => {
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Login
+            </button>
+            <button
+              type="button"
+              className="text-sm text-blue-500 hover:text-blue-700"
+              onClick={() => navigate('/reset-password')}
+            >
+              Forgot password?
             </button>
           </div>
         </form>

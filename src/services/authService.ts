@@ -1,4 +1,4 @@
-// src/services/apiService.ts
+// src/services/authService.ts
 
 import api from '../utils/api'; // Axios instance
 
@@ -34,6 +34,25 @@ export const authService = {
 
   register: async (data: RegisterData): Promise<AuthResponse> => {
     const response = await api.post<AuthResponse>('/auth/register', data);
+    return response.data;
+  },
+
+  requestPasswordReset: async (email: string): Promise<{ message: string }> => {
+    const response = await api.post('/auth/request-password-reset', { email });
+    return response.data;
+  },
+
+  validateResetToken: async (token: string): Promise<void> => {
+    await api.get(`/auth/reset-password/${token}`);
+  },
+
+  resetPassword: async (
+    token: string,
+    newPassword: string
+  ): Promise<{ message: string }> => {
+    const response = await api.post(`/auth/reset-password/${token}`, {
+      newPassword,
+    });
     return response.data;
   },
 };
